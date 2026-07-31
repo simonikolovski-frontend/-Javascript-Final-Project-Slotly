@@ -267,7 +267,7 @@
        (Starts visible so you can build browsing before the auth flow
         exists in Sprint 2. Your auth module hides it when logged out.)
        ============================================================ -->
-  <div id="app-view">
+  <div id="app-view"  class="d-none" >
 
     <!-- Top bar: brand + the three routes + who's logged in -->
     <nav class="navbar navbar-expand-md sticky-top topbar">
@@ -345,12 +345,25 @@
                 <option value="title">Title (A–Z)</option>
               </select>
             </div>
+
           </div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <span id="count" class="browse-count small">0 services</span>
-        </div>
+    <!-- BROWSE STATS -->
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+
+  <!-- Број на видливи услуги. -->
+  <span id="count" class="browse-count small">
+    0 services
+  </span>
+
+  <!-- Најевтина и најрезервирана услуга. -->
+  <span id="browse-stats" class="text-muted small">
+    Cheapest: — · Most booked: —
+  </span>
+
+</div>
 
         <!-- ========================================================
              DESIGN MOCK — a BROWSE CARD (from the designer).
@@ -557,6 +570,21 @@
             <div class="col">
               <label class="field-label" for="svc-price">Price (€)</label>
               <input id="svc-price" class="form-control" type="number" min="1" step="1" placeholder="20" required>
+
+<!-- Максимален број на дозволени bookings. -->
+<label class="field-label" for="svc-max-bookings">
+  Maximum bookings
+</label>
+
+<input
+  id="svc-max-bookings"
+  class="form-control mb-3"
+  type="number"
+  min="1"
+  placeholder="e.g. 5"
+  required
+>
+
             </div>
             <div class="col">
               <label class="field-label" for="svc-duration">Duration (min)</label>
@@ -595,6 +623,7 @@
        everything else in vanilla JS. Only Bootstrap's CSS is used. -->
 
   <!-- SL-1: load your entry file here. Remember what kind of script it must be. -->
+<script type="module" src="main.js"></script>
 
 </body>
 </html>

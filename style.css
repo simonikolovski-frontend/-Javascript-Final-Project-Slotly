@@ -529,6 +529,24 @@ img { max-width: 100%; }
 .seller { display: flex; align-items: center; gap: .45rem; color: var(--ink-2); font-size: .9rem; margin: .5rem 0; }
 .seller strong { color: var(--ink); font-weight: 600; }
 
+.provider-link {
+  display: inline-block;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  padding: 2px 5px;
+  border-radius: 999px;
+
+  transition: box-shadow .2s ease;
+}
+
+.provider-link:hover {
+  box-shadow: 0 2px 8px rgba(123, 97, 255, 0.20);
+}
+
+
 .meta-row { display: flex; flex-wrap: wrap; gap: .35rem .9rem; color: var(--muted); font-size: .84rem; margin-bottom: .9rem; }
 .meta-row .meta { display: inline-flex; align-items: center; gap: .3rem; }
 .meta-row .meta.booked { color: var(--brand-ink); font-weight: 600; }
@@ -614,10 +632,44 @@ img { max-width: 100%; }
   overflow: hidden; box-shadow: var(--sh-lg); animation: pop .26s cubic-bezier(.2,.9,.3,1.2) both;
   max-height: 92vh; display: flex; flex-direction: column;
 }
+
+/* Form го зема преостанатиот простор под header-от. */
+#service-form {
+  display: flex;
+  flex-direction: column;
+
+  /* Го зема слободното место во modal-panel. */
+  flex: 1;
+
+  /* Дозволува form-от да се намали на мал екран. */
+  min-height: 0;
+}
+
 .modal-panel-head { display: flex; justify-content: space-between; align-items: center; padding: 1.15rem 1.4rem; border-bottom: 1px solid var(--line); }
 #form-title { font-size: 1.25rem; }
-.modal-panel-body { padding: 1.3rem 1.4rem; overflow-y: auto; }
-.modal-panel-foot { display: flex; justify-content: flex-end; gap: .6rem; padding: 1.05rem 1.4rem; border-top: 1px solid var(--line); background: var(--bg-soft); }
+.modal-panel-body {
+  padding: 1.3rem 1.4rem;
+
+  /* Body го зема преостанатиот простор во form-от. */
+  flex: 1;
+
+  /* Многу важно за scroll во flex елемент. */
+  min-height: 0;
+
+  /* Кога формата е предолга, тука се појавува scroll. */
+  overflow-y: auto;
+}
+.modal-panel-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: .6rem;
+  padding: 1.05rem 1.4rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+
+  /* Копчињата секогаш остануваат видливи. */
+  flex-shrink: 0;
+}
 .btn-x { border: 0; background: transparent; font-size: 1.5rem; line-height: 1; color: var(--muted); cursor: pointer; width: 38px; height: 38px; border-radius: 10px; transition: background .15s ease, color .15s ease; }
 .btn-x:hover { background: var(--bg-soft); color: var(--ink); }
 
