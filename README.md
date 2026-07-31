@@ -182,6 +182,16 @@ The visitor sees every service on the Browse view, built from `state`.
 - [ ] Cards are read-only for now: the **View & book** link works, nothing else. No owner
       buttons, no booking box yet.
 
+////// Summary of Sprint 1   //////
+✅ Сите услуги се прикажани
+✅ ProviderId е поврзан со вистинскиот корисник
+✅ Сликите се прикажуваат
+✅ Broken/empty image има fallback
+✅ Confirmed bookings се бројат
+✅ Counter покажува 8 services
+✅ HTML strings се само во render.js
+✅ render() само чита state
+
 ## Sprint 2 — Accounts
 
 *After this sprint the app is for members only. A logged-out visitor sees the **landing page**
@@ -194,6 +204,17 @@ first (with Log in / Sign up). The app is hidden until someone logs in.*
       accounts.
 - [ ] The register form clears after a successful register.
 
+///   summary /////
+✅ Landing → Sign up
+✅ Login/Register tab switching
+✅ Register form submit
+✅ POST /users
+✅ Duplicate email check
+✅ Email споредба без разлика на големи букви
+✅ Form reset по успешна регистрација
+✅ После регистрација се отвора Login
+✅ Корисникот не се најавува автоматски
+
 ### SL-5 · Log in
 - [ ] Correct email + password (try `ana@test.com` / `ana123`) → the app, with the name in the
       top bar.
@@ -204,6 +225,16 @@ first (with Log in / Sign up). The app is hidden until someone logs in.*
 - [ ] Logging in on a fresh browser shows a **full** app — the services are already on screen,
       not an empty grid.
 
+// summary \\ 
+✅ Login form submit
+✅ Email и password проверка
+✅ Email не зависи од големи/мали букви
+✅ Погрешни податоци покажуваат error
+✅ Точни податоци го поставуваат currentUser
+✅ App екранот се отвора
+✅ Името на корисникот се покажува
+✅ Login формата се чисти
+
 ### SL-6 · Stay logged in, log out
 - [ ] Refresh while logged in → still in the app, still logged in.
 - [ ] The session is saved in localStorage and holds **only** id and name — never the password
@@ -212,6 +243,14 @@ first (with Log in / Sign up). The app is hidden until someone logs in.*
 - [ ] **Log out clears everything.** Log in as Ana, log out, log in as Marko. Nothing from Ana
       is left: not the user, not the loaded data, not a half-finished edit, not the last route.
       Check with the second account.
+
+// summary  \\\ 
+✅ Login session се чува во localStorage
+✅ Password не се чува во session
+✅ Login преживува refresh
+✅ Името и avatar-от се враќаат
+✅ Logout ја брише session
+✅ После logout refresh не го враќа корисникот
 
 ## Sprint 3 — Views & the detail page
 
@@ -229,6 +268,15 @@ link points, updates the view in `state`, and re-renders.
 - [ ] Switching views only changes state and re-renders — no server requests (Network stays
       quiet), and the address bar does not change.
 
+//// summary  \\\\
+✅ Route се чува во state
+✅ Browse navigation
+✅ My Bookings navigation
+✅ My Services navigation
+✅ Само еден view е видлив
+✅ После login се отвора Browse
+✅ После logout route се ресетира
+
 ### SL-8 · The service detail page
 - [ ] Clicking a service (its card, photo, or title) opens its **own page**: the detail view
       shows that service from `state` — photo, title, provider, `€` price, duration, category,
@@ -237,11 +285,45 @@ link points, updates the view in `state`, and re-renders.
 - [ ] Someone else's service shows a booking box. Your own service shows Edit / Delete instead
       — never a booking box on your own service.
 
+/// summary \\\
+✅ Го најдовме HTML container-от за My Services     
+✅ Направивме renderMyServices() во render.js
+✅ Ги филтриравме услугите според:  service.providerId  и   state.currentUser.id
+✅ Користевме String(...) за сигурна споредба на id вредностите
+✅ Ако корисникот нема услуги, покажуваме порака
+✅ Ако има услуги, повторно ја користиме:  createServiceCard(service)
+✅ Ја повикавме renderMyServices() во главната render() функција
+✅ Тестиравме со различни корисници
+✅ My Services сега покажува само услуги од најавениот корисник
+
 ### SL-9 · Handle a missing service
 - [ ] Opening a service that doesn't exist (for example one that was just deleted) shows a
       friendly *service not found* with a link back. No crash, no `undefined`.
 - [ ] Reading `state.currentUser` or the current service never crashes — not for a bad id, not
       when logged out. (Check the value exists before you use it.)
+
+//// summary \\\\\
+✅ Routing до Details страницата
+✅ Приказ на податоци за услугата
+✅ Back копче
+✅ Book this service копче
+✅ Booking форма
+✅ Валидација на полињата
+✅ Проверка за минат датум
+✅ Проверка дали корисникот е најавен
+✅ Креирање booking object
+✅ Ги задржуваме старите bookings
+✅ Креираме ажурирана услуга
+✅ Зачувување на сервер со PUT
+✅ Ажурирање на state.services
+✅ Success порака
+✅ Чистење на формата
+✅ Криење на формата
+✅ Заштита од двојно кликање
+✅ try...catch...finally за грешки
+✅ Service not found за погрешен или избришан ID
+✅ Безбедно читање на вредностите
+
 
 ## Sprint 4 — Offer a service
 
@@ -251,6 +333,32 @@ link points, updates the view in `state`, and re-renders.
       `[]`.
 - [ ] The new service shows on Browse and My services with no manual refresh. The counter goes
       up by one. The modal closes and opens clean next time.
+
+/// summary  \\\
+✅ Ги земавме сите DOM елементи од Offer Service формата
+✅ Направивме отворање на modal-от со Offer a Service копчињата
+✅ Направивме затворање на modal-от со ✕ копчето
+✅ Додадовме затворање на modal-от со клик на темната позадина
+✅ Направивме submit listener за serviceForm
+✅ Користевме event.preventDefault() за да спречиме refresh на страницата
+✅ Ги прочитавме сите вредности од формата (title, price, duration, category, image, description)
+✅ Ги претворивме price и duration во броеви со Number()
+✅ Направивме validation за задолжителните полиња
+✅ Прикажуваме error порака ако некоја проверка не помине
+✅ Го креиравме newService object со сите потребни податоци
+✅ Го поставивме providerId на најавениот корисник (state.currentUser.id)
+✅ Додадовме празно bookings поле (bookings: [])
+✅ Направивме createService() функција во api.js со POST request
+✅ Ја export-иравме и import-иравме createService() функцијата
+✅ Го зачувуваме новиот service со await createService(newService)
+✅ По успешно зачувување повторно ги вчитуваме податоците со await loadData()
+✅ Ја ресетираме формата со serviceForm.reset()
+✅ Ја чистиме error пораката
+✅ Го затвораме Offer Service modal-от
+✅ Додадовме try...catch за правилно справување со серверски грешки
+✅ Додадовме finally за повторно да се активира Publish Service копчето
+✅ Го оневозможивме двојното кликнување (double submit)
+✅ Тестиравме успешно додавање на нов service и негово веднаш прикажување на страницата
 
 ### SL-11 · Edit / delete my service
 - [ ] On **my** service (detail view and My services) I see Edit and Delete. On other people's
@@ -263,6 +371,26 @@ link points, updates the view in `state`, and re-renders.
 - [ ] Adding a new service after an edit creates a **new** service. It never overwrites the
       edited one.
 
+/// summary \\\
+✅ Edit service
+✔ Се прикажува Edit копче само на моите услуги.
+✔ Со клик се отвора истиот modal.
+✔ Полињата се пополнуваат со старите податоци.
+✔ Насловот се менува во "Edit your service".
+✔ Копчето се менува во "Save changes".
+✔ Се повикува updateService().
+✔ Се зачувуваат промените на MockAPI.
+✔ По refresh промените остануваат.
+
+✅ Delete service
+✔ Се прикажува Delete копче само на моите услуги.
+✔ Се појавува confirm().
+✔ Cancel → не брише ништо.
+✔ OK → повикува deleteService().
+✔ Се брише од MockAPI.
+✔ Се прави loadData().
+✔ По refresh услугата повеќе не постои.
+
 ## Sprint 5 — Booking & browsing
 
 ### SL-12 · Book a service
@@ -272,6 +400,18 @@ link points, updates the view in `state`, and re-renders.
 - [ ] Empty date or time is refused with a message. Nothing is sent.
 - [ ] After booking, the detail page and My bookings both show it — no manual refresh.
 - [ ] You cannot book your own service (there is no booking box there).
+
+/// summary \\\\
+1. на туѓа услуга можеш да избереш датум и време;
+2. со Confirm booking се додава нов booking;
+3. booking-от се додава во bookings array;
+4. се прави PUT на целата услуга;
+5. после тоа повторно ги земаш услугите со getServices();
+6. празен датум или време се одбива со порака;
+7. минат датум и време се одбива;
+8. booking-от се појавува во My bookings;
+9. на сопствена услуга не се прикажува booking форма;
+10. ( БОНУС )Back правилно враќа во Browse или My Services.
 
 ### SL-13 · My bookings, and cancel
 - [ ] `#/bookings` shows every service where **I** am in the `bookings` array with
@@ -283,6 +423,19 @@ link points, updates the view in `state`, and re-renders.
       confirms it.
 - [ ] An empty bookings view shows a message, not a blank page.
 
+/// summary  \\\\
+✅ #/bookings прикажува само confirmed bookings.
+✅ Се прикажуваат title, date, time и provider.
+✅ Насловот води до Service Details.
+✅ Прикажан е бројач (1 upcoming booking, 2 upcoming bookings...).
+✅ Cancel прво прашува со confirm().
+✅ Ако се избере No → ништо не се менува.
+✅ Ако се избере Yes → status станува "cancelled".
+✅ Се прави PUT на целата услуга.
+✅ Booking-от исчезнува веднаш.
+✅ По refresh останува откажан.
+✅ Ако нема bookings, се прикажува порака наместо празна страница.
+
 ### SL-16 · Search, filter, sort
 - [ ] On Browse, typing in the search box filters by title as you type (not case-sensitive).
 - [ ] The category dropdown shows one category. The sort dropdown sorts by price low→high,
@@ -293,6 +446,18 @@ link points, updates the view in `state`, and re-renders.
 
 **This is the mandatory part — a working app with routing and booking, ready for your
 portfolio.** Stop here until every box above is checked. Everything below is optional.
+
+///  summary \\\
+- Search by title
+- Category filter
+- Sort:
+Price ↑
+Price ↓
+Title A–Z
+- Clear Filters button (BONUS)
+- Clear button created entirely with JavaScript
+- Hidden until a filter is active
+- Returns all services after clearing
 
 ---
 
@@ -306,6 +471,32 @@ portfolio.** Stop here until every box above is checked. Everything below is opt
 - [ ] My services shows a summary from state — e.g. `3 services · 4 bookings total`.
 - [ ] Adding a service, or any booking or cancel, updates these numbers in the same render.
       They are never stored, only calculated.
+
+/// summary \\\
+✅ 4. Owner ги гледа своите клиенти
+- Во Service Details за сопствен сервис се прикажува:
+      име на клиентот
+      датум
+      време
+- сè земени од:
+users
+bookings
+✅ 5. Booking counter
+Се прикажува бројот на bookings.
+4 bookings
+✅ 6. My Services summary
+3 services · 4 bookings total
+✅ 7. Summary е динамички Не се зачувува никаде.
+Секој render() повторно пресметува:
+колку услуги има
+колку bookings има
+✅ 8. Summary автоматски се обновува
+Се менува веднаш после:
+додавање сервис
+booking
+cancel booking
+без refresh.
+
 
 ## Polish backlog
 
@@ -339,3 +530,276 @@ Two users might try to book the same time. A real booking app must handle this.
 ### Photo preview in the offer form
 - [ ] As you type or paste an image URL in the offer/edit form, show a small live preview.
 - [ ] Keep the category-tile fallback for an empty or broken URL.
+
+///// summary \\\\
+✅ 1. Проверка пред booking
+- Пред да се резервира термин, апликацијата:
+   повторно ја вчитува услугата од MockAPI
+   проверува дали услугата сè уште постои
+   проверува дали истиот датум и време се веќе резервирани
+- Ако терминот е зафатен:
+   booking не се прави
+   се прикажува порака
+✅ 2. Нема double booking
+   Двајца корисници повеќе не можат да резервираат:
+3. Double-click protection
+  во MockAPI се снима само една резервација.
+
+
+
+
+////   sesion changes     23,07,26   \\\\
+
+✅ Направени подобрувања: 12
+-Нови функционалности
+-Toast систем
+-Login toast
+-Register toast
+-Logout toast
+-Booking toast
+-Cancel booking toast
+
+-Поправени багови
+-Edit → Save не враќа на Browse
+-Отстранет непотребен navigateTo("browse")
+-Отстранет дупли render()
+
+🎯 Резултат
+✔ Нема browser alert() за успешни акции.
+✔ Корисникот добива убави toast пораки.
+✔ Навигацијата работи правилно.
+✔ Кодот е почист и полесен за одржување.
+
+🎨 UI редизајн
+✅ My Bookings
+
+Целосно го променивме изгледот на Booking картичките.
+Додадовме:
+
+✅ поголема и почиста картичка
+✅ подобар распоред (layout)
+✅ поголема слика
+✅ подобро порамнет текст
+✅ Booked date
+✅ Booked time
+✅ Provider
+✅ Category
+✅ Price
+✅ Duration
+✅ Service description
+✅ Cancel Booking копче
+✅ подобар spacing и Bootstrap стил
+
+✅ My Services
+Целосно го редизајниравме и My Services.
+Додадовме:
+
+✅ нов изглед на service cards
+✅ поголема слика
+✅ подобри badge-ови
+✅ подобро порамнети информации
+✅ Edit копче
+✅ Delete копче
+✅ Summary:   3 services · 4 bookings total
+✅ Booking counter на секој сервис
+
+✅ Service Details (Owner View)
+Кога сопственикот ќе отвори свој сервис:
+
+се прикажува:
+
+✅ сите confirmed bookings
+✅ име на клиент
+✅ датум
+✅ време
+✅ вкупен број bookings
+
+
+✅ Bug fixes
+✅ останува на My Services после Save
+✅ loadData() cleanup
+✅ отстранет navigateTo("browse")
+✅ отстранет дупли render()
+✅ нема double booking
+✅ нема double-click booking
+
+
+
+////   sesion changes    24.07.2026  \\\\
+
+1. Го подобривме router-от со hashchange
+Додадовме window.addEventListener("hashchange", ...) во main.js, така што апликацијата сега автоматски реагира кога се менува URL hash (#/browse, #/service/5, #/bookings итн.). Ова овозможи навигацијата да работи како вистинска Single Page Application (SPA), без рачно менување на state.route.
+2. Го поправивме отворањето на Service Details од Browse
+Го откривме проблемот дека при клик на картичка URL-то се менувало, но апликацијата не ја отворала Details страницата. Со додавање на hashchange listener, сега секоја Browse картичка правилно ја отвора избраната услуга.
+3. Овозможивме FULL услугите да можат да се отворат
+Наместо disabled копче "Fully booked", поставивме линк кој ја отвора Details страницата. На тој начин корисникот повеќе не е блокиран и може да ги види сите информации за услугата иако таа е целосно резервирана.
+4. Им овозможивме на корисниците да ги видат своите резервирани термини кај FULL услуги
+Со отворањето на FULL услугите, корисникот сега може да ја види секцијата "Your booked appointments", каде што се прикажуваат неговите резервирани датуми и часови, иако услугата повеќе не прима нови резервации.
+5. Го тестиравме новиот routing систем
+Проверивме дека навигацијата функционира правилно при отворање на услуги од Browse, како и при отворање на FULL услуги. Потврдивме дека URL-то и прикажаната страница остануваат синхронизирани.
+6. Го подобривме корисничкото искуство
+Со овие промени, корисниците повеќе не добиваат впечаток дека FULL услугите се „заклучени“. Наместо тоа, можат да ги разгледаат деталите, да го проверат статусот на услугата и да ги видат сопствените резервации.
+7. Финално тестирање
+Го тестиравме целиот процес и потврдивме дека:
+Browse картичките повторно се отвораат правилно.
+FULL картичките се отвораат без проблем.
+Корисникот може да ги види своите резервирани термини кај FULL услуги.
+Router-от правилно реагира на промена на URL hash и ја прикажува соодветната страница.
+
+Price Range Filter — Кратко резиме
+1. Додадовме нови филтри во state.js
+minPrice: "",
+maxPrice: "",
+2. Креиравме нов ред во Browse
+Под првиот ред со:
+Search
+Category
+Sort
+додадовме втор ред со:
+Min €
+Max €
+Clear filters
+Редот е порамнет десно.
+3. Ги поврзавме input полињата со state
+Направивме input listeners.
+Кога корисникот внесува цена:
+се зачувува во state.filters
+повторно се повикува renderBrowse()
+се освежува листата на услуги.
+4. Додадовме Price Filter во getVisibleServices()
+По Category filter додадовме:
+Minimum Price filter
+Maximum Price filter
+Филтерот ги задржува само услугите чија цена е:
+поголема или еднаква на Min
+помала или еднаква на Max
+5. Го поправивме visibleServices
+services  во visibleServices
+6. Го поврзавме со Clear Filters
+При клик на Clear filters:
+се бришат minPrice и maxPrice од state
+се празнат двете input полиња
+повторно се прикажуваат сите услуги.
+7. updateClearButton()
+Го проширивме hasFilters да проверува и:
+state.filters.minPrice
+state.filters.maxPrice
+Така редот со:
+Min €
+Max €
+Clear filters
+се појавува само кога има активен барем еден филтер.
+
+
+
+////   sesion changes    25.07.2026  \\\\
+работевме на routing и проверка на проектот.
+
+✅ Што направивме
+Разговаравме за архитектурата:
+render.js → не треба да менува state и да прави fetch.
+main.js → треба да ги поврзува event-ите (wires events).
+Решивме да не го рефакторираме проектот бидејќи моментално работи стабилно.
+
+Го најдовме и поправивме багот со Back копчето:
+Од Browse → View & Book → Back сега правилно се враќа на Browse.
+Од My Bookings → Details → Back се враќа на My Bookings.
+Од My Services → Details → Back се враќа на My Services.
+Поправката ја направивме во handleRoute(), каде што автоматски се зачувува previousView пред отворање на Details.
+
+✅ Проектот моментално е стабилен и Back навигацијата работи како што треба.
+
+
+///// sesion changes  26.07.26  \\\\\\\\
+
+ Главна цел
+Да ја подобриме архитектурата на проектот според README, така што:
+
+render.js да биде задолжен само за прикажување (render).
+main.js да ги обработува настаните (event listeners) и да го менува state.
+api.js да ги извршува API повиците.
+
+1. Cancel Booking
+Го преместивме од render.js во main.js.
+Преместено:
+cancelBooking()
+Cancel listener од My Bookings
+Cancel listener од Service Details
+
+Резултат:
+render.js повеќе не прави updateService().
+render.js повеќе не прави getServices().
+main.js го ажурира state и повикува render().
+
+2. Request Booking / Save Booking Changes
+Целата booking submit логика ја преместивме од render.js во main.js.
+Преместено:
+читање на Date и Time
+сите валидации
+проверка дали услугата е полна
+проверка за зафатен термин
+додавање нов booking
+измена на постоечки booking
+updateService()
+повторно вчитување со getServices()
+state.services = newestServices
+render()
+toast пораки
+
+3. Чистење на render.js
+Отстранивме непотребни imports:
+updateService
+getServices
+showToast
+Со тоа render.js повеќе не зависи од API логиката.
+
+
+✅ Тестирање
+По секоја миграција успешно тестиравме:
+
+✔ Request booking
+✔ Edit booking
+✔ Cancel booking
+✔ Refresh после промените
+✔ Toast пораки
+✔ Console без грешки
+
+Сè работи правилно.
+
+
+
+
+
+
+📌 Што останува за следната сесија
+
+Следниот пат ќе направиме целосна анализа на проектот според README.
+
+План:
+
+Да ги пронајдеме сите функции.
+Да ги групираме по фајлови.
+Да означиме кои се:
+Rendering
+Event listeners
+API
+Router
+Auth
+State management
+Да провериме дали секоја функција се наоѓа во соодветниот фајл.
+Да видиме дали останува уште нешто за подобрување.
+
+
+
+Следно што би го направил
+
+Има уште неколку мали polish работи, а најкорисна е:
+
+⭐ Disable зафатените термини (Booked Slots)
+
+Во моментов корисникот:
+
+избира датум
+избира време
+притиска Book
+дури тогаш добива:
