@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slotly — book trusted local pros</title>
+
+  <!-- Bootstrap 5 (CDN, CSS only) + icons. You style with Bootstrap + style.css;
+       there is NO Bootstrap JavaScript — every behaviour is yours to build. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235a45f0'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       VIEW 0 — LANDING PAGE. The front door: the marketing page a
+       logged-OUT visitor sees first. Its Log in / Sign up actions
+       carry data-auth="login|register" — your JS reads that to open
+       the auth screen on the right tab. Nav links carry data-scroll.
+       (Hidden here so Sprint-1 browsing work shows; your auth module
+        reveals it when nobody is signed in — see the README note.)
+       ============================================================ -->
+  <div id="landing-view" class="d-none">
+
+    <!-- landing top nav -->
+    <nav class="lp-nav">
+      <div class="container">
+        <a class="brand" href="#/browse"><span class="brand-mark"><i class="bi bi-calendar2-check"></i></span> Slotly</a>
+        <div class="lp-links">
+          <a href="#lp-categories" data-scroll="lp-categories">Explore</a>
+          <a href="#lp-how" data-scroll="lp-how">How it works</a>
+          <a href="#lp-providers" data-scroll="lp-providers">For providers</a>
+        </div>
+        <div class="lp-nav-actions">
+          <button class="btn btn-light-ghost" type="button" data-auth="login">Log in</button>
+          <button class="btn btn-primary" type="button" data-auth="register">Sign up</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <header class="lp-hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Local services, close to home</span>
+            <h1 class="hero-title">Book trusted local pros in <span class="accent">a couple of taps</span>.</h1>
+            <p class="hero-sub">Haircuts, guitar lessons, photo sessions, dog walking and more — real people near you, booked around your schedule.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary btn-lg" type="button" data-auth="register">Get started — it's free</button>
+              <button class="btn btn-outline-primary btn-lg" type="button" data-auth="login">I have an account</button>
+            </div>
+            <div class="hero-trust">
+              <span class="avatar-stack">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=70" alt="">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=70" alt="">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=80&q=70" alt="">
+              </span>
+              <span><span class="stars">★★★★★</span> <strong>4.9</strong> from 1,200+ bookings</span>
+            </div>
+          </div>
+
+          <!-- hero visual: a small collage of floating service cards -->
+          <div class="hero-visual" aria-hidden="true">
+            <div class="float-card fc-1">
+              <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=500&q=70" alt="">
+              <div class="fc-body"><div class="fc-title">Haircut &amp; style</div>
+                <div class="fc-meta"><span class="fc-cat">Beauty · Ana</span><span class="fc-price">€20</span></div></div>
+            </div>
+            <div class="float-card fc-2">
+              <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=500&q=70" alt="">
+              <div class="fc-body"><div class="fc-title">Portrait photo session</div>
+                <div class="fc-meta"><span class="fc-cat">Photography · Iva</span><span class="fc-price">€80</span></div></div>
+            </div>
+            <div class="float-card fc-3">
+              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=70" alt="">
+              <div class="fc-body"><div class="fc-title">Personal training</div>
+                <div class="fc-meta"><span class="fc-cat">Fitness · Ana</span><span class="fc-price">€25</span></div></div>
+            </div>
+            <div class="hero-badge hb-1"><span class="dot"><i class="bi bi-check-lg"></i></span> Booking confirmed</div>
+            <div class="hero-badge hb-2"><span class="dot"><i class="bi bi-calendar-event"></i></span> Tue · 14:00</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- category strip -->
+    <section id="lp-categories" class="lp-section band">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Browse by category</span>
+          <h2 class="section-title">Whatever you need, someone nearby does it</h2>
+        </div>
+        <div class="cat-grid">
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-beauty)"><i class="bi bi-scissors"></i></span><span><span class="cat-name">Beauty</span><br><span class="cat-count">40+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-lessons)"><i class="bi bi-mortarboard"></i></span><span><span class="cat-name">Lessons</span><br><span class="cat-count">35+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-photography)"><i class="bi bi-camera"></i></span><span><span class="cat-name">Photography</span><br><span class="cat-count">18+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-pets)"><i class="bi bi-heart-fill"></i></span><span><span class="cat-name">Pets</span><br><span class="cat-count">22+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-home)"><i class="bi bi-house-door"></i></span><span><span class="cat-name">Home</span><br><span class="cat-count">50+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-fitness)"><i class="bi bi-activity"></i></span><span><span class="cat-name">Fitness</span><br><span class="cat-count">28+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-repairs)"><i class="bi bi-tools"></i></span><span><span class="cat-name">Repairs</span><br><span class="cat-count">31+ pros</span></span></a>
+          <a class="cat-tile" href="#" data-auth="register"><span class="cat-ico" style="background:var(--c-other)"><i class="bi bi-calendar-check"></i></span><span><span class="cat-name">Other</span><br><span class="cat-count">60+ pros</span></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- how it works -->
+    <section id="lp-how" class="lp-section">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">How it works</span>
+          <h2 class="section-title">Booked in three easy steps</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-ico"><i class="bi bi-search"></i><span class="step-n">1</span></div><h3>Find a pro</h3><p>Browse local services, filter by category and price, and open the one you like.</p></div>
+          <div class="step"><div class="step-ico"><i class="bi bi-calendar2-week"></i><span class="step-n">2</span></div><h3>Pick a time</h3><p>Choose the date and time that works for you and request your booking in seconds.</p></div>
+          <div class="step"><div class="step-ico"><i class="bi bi-emoji-smile"></i><span class="step-n">3</span></div><h3>Show up</h3><p>Track it under <em>My bookings</em>, manage everything in one place, and enjoy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- featured services (static showcase; clicking invites sign-up) -->
+    <section id="lp-featured" class="lp-section band lp-featured">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Popular right now</span>
+          <h2 class="section-title">A few of the pros people love</h2>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
+          <div class="col"><a class="text-reset text-decoration-none" href="#" data-auth="register"><article class="card service-card h-100">
+            <span class="poster" data-category="Beauty"><span class="poster-fallback"><i class="bi bi-scissors"></i></span><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=70" alt=""><span class="cat-badge">Beauty</span></span>
+            <div class="card-body"><div class="d-flex justify-content-between align-items-start gap-2"><h3 class="card-title h6 mb-0">Haircut &amp; style</h3><span class="price">€20</span></div>
+            <p class="seller"><span class="avatar">A</span> <strong>Ana</strong></p><div class="meta-row"><span class="meta"><i class="bi bi-clock"></i> 30 min</span></div></div>
+          </article></a></div>
+          <div class="col"><a class="text-reset text-decoration-none" href="#" data-auth="register"><article class="card service-card h-100">
+            <span class="poster" data-category="Lessons"><span class="poster-fallback"><i class="bi bi-mortarboard"></i></span><img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=600&q=70" alt=""><span class="cat-badge">Lessons</span></span>
+            <div class="card-body"><div class="d-flex justify-content-between align-items-start gap-2"><h3 class="card-title h6 mb-0">Beginner guitar lesson</h3><span class="price">€18</span></div>
+            <p class="seller"><span class="avatar">M</span> <strong>Marko</strong></p><div class="meta-row"><span class="meta"><i class="bi bi-clock"></i> 60 min</span></div></div>
+          </article></a></div>
+          <div class="col"><a class="text-reset text-decoration-none" href="#" data-auth="register"><article class="card service-card h-100">
+            <span class="poster" data-category="Photography"><span class="poster-fallback"><i class="bi bi-camera"></i></span><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=600&q=70" alt=""><span class="cat-badge">Photography</span></span>
+            <div class="card-body"><div class="d-flex justify-content-between align-items-start gap-2"><h3 class="card-title h6 mb-0">Portrait photo session</h3><span class="price">€80</span></div>
+            <p class="seller"><span class="avatar">I</span> <strong>Iva</strong></p><div class="meta-row"><span class="meta"><i class="bi bi-clock"></i> 90 min</span></div></div>
+          </article></a></div>
+          <div class="col"><a class="text-reset text-decoration-none" href="#" data-auth="register"><article class="card service-card h-100">
+            <span class="poster" data-category="Pets"><span class="poster-fallback"><i class="bi bi-heart-fill"></i></span><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&q=70" alt=""><span class="cat-badge">Pets</span></span>
+            <div class="card-body"><div class="d-flex justify-content-between align-items-start gap-2"><h3 class="card-title h6 mb-0">Dog walking</h3><span class="price">€10</span></div>
+            <p class="seller"><span class="avatar">A</span> <strong>Ana</strong></p><div class="meta-row"><span class="meta"><i class="bi bi-clock"></i> 45 min</span></div></div>
+          </article></a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- become a provider -->
+    <section id="lp-providers" class="lp-section">
+      <div class="container">
+        <div class="lp-cta">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <span class="eyebrow" style="color:#d9ceff">Earn on your terms</span>
+              <h2 class="lp-cta-title">Offer your service. Reach clients nearby.</h2>
+              <p>List what you do, set your price, and start taking bookings from people in your area — all from the same account you book with.</p>
+              <button class="btn btn-light btn-lg" type="button" data-auth="register">Become a provider</button>
+              <div class="stat-row">
+                <div class="stat"><b>2 min</b><span>to list a service</span></div>
+                <div class="stat"><b>0%</b><span>setup fees</span></div>
+                <div class="stat"><b>1,200+</b><span>bookings made</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="lp-footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <a class="brand mb-2 d-inline-flex" href="#/browse"><span class="brand-mark"><i class="bi bi-calendar2-check"></i></span> Slotly</a>
+            <p style="max-width:34ch">Book trusted local pros, close to home. Built for a JavaScript course — a portfolio-grade demo app.</p>
+          </div>
+          <div class="col-6 col-lg-2"><h6>Product</h6><a href="#lp-how" data-scroll="lp-how">How it works</a><a href="#lp-categories" data-scroll="lp-categories">Categories</a><a href="#" data-auth="login">Log in</a></div>
+          <div class="col-6 col-lg-2"><h6>Categories</h6><a href="#" data-auth="register">Beauty</a><a href="#" data-auth="register">Lessons</a><a href="#" data-auth="register">Photography</a></div>
+          <div class="col-6 col-lg-2"><h6>Company</h6><a href="#lp-providers" data-scroll="lp-providers">For providers</a><a href="#" data-auth="register">Careers</a><a href="#" data-auth="register">Contact</a></div>
+          <div class="col-6 col-lg-2"><h6>Legal</h6><a href="#" data-auth="register">Terms</a><a href="#" data-auth="register">Privacy</a></div>
+        </div>
+        <div class="foot-bottom d-flex justify-content-between flex-wrap gap-2">
+          <span>© 2026 Slotly. A course project.</span>
+          <span>Made with vanilla JS · ES modules · Bootstrap</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============================================================
+       VIEW A — AUTH (login + register). A split screen: brand panel
+       on the left, the form on the right. Shown when a visitor chose
+       Log in / Sign up. Keeps the ids your auth module already uses.
+       ============================================================ -->
+  <div id="auth-view" class="auth-view d-none">
+    <div class="auth-split">
+
+      <!-- left: brand panel -->
+      <aside class="auth-brand">
+        <a class="brand" href="#/browse"><span class="brand-mark"><i class="bi bi-calendar2-check"></i></span> Slotly</a>
+        <div class="auth-pitch">
+          <h2>Your next appointment is a couple of taps away.</h2>
+          <p>Join Slotly to book local pros and offer your own services — all from one account.</p>
+          <div class="auth-quote">
+            <p>“I booked a haircut on my lunch break and listed my guitar lessons the same evening. So easy.”</p>
+            <div class="who"><span class="avatar">M</span> Marko · guitar teacher &amp; client</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- right: the form -->
+      <div class="auth-form-wrap">
+        <div class="auth-card">
+          <!-- back to the landing page -->
+          <a class="auth-back" href="#" id="auth-back"><i class="bi bi-arrow-left"></i> Back to home</a>
+
+          <h1 class="auth-logo">Welcome to Slotly</h1>
+          <p class="auth-sub">Log in or create an account to continue.</p>
+
+          <!-- the two tabs -->
+          <div class="auth-toggle" role="group">
+            <button id="show-login" class="btn active" type="button">Log in</button>
+            <button id="show-register" class="btn" type="button">Sign up</button>
+          </div>
+
+          <!-- LOGIN form -->
+          <form id="login-form" autocomplete="off">
+            <label class="field-label" for="login-email">Email</label>
+            <input id="login-email" class="form-control mb-3" type="email" placeholder="you@example.com" required>
+            <label class="field-label" for="login-password">Password</label>
+            <input id="login-password" class="form-control mb-3" type="password" placeholder="Your password" required>
+            <button type="submit" class="btn btn-primary w-100">Log in</button>
+            <p id="login-error" class="text-danger small mt-2 mb-0"></p>
+            <p class="auth-alt">Try <strong>ana@test.com</strong> / <strong>ana123</strong></p>
+          </form>
+
+          <!-- REGISTER form (hidden until the Sign up tab is clicked) -->
+          <form id="register-form" class="d-none" autocomplete="off">
+            <label class="field-label" for="register-name">Your name</label>
+            <input id="register-name" class="form-control mb-3" type="text" placeholder="Jane Doe" required>
+            <label class="field-label" for="register-email">Email</label>
+            <input id="register-email" class="form-control mb-3" type="email" placeholder="you@example.com" required>
+            <label class="field-label" for="register-password">Password</label>
+            <input id="register-password" class="form-control mb-3" type="password" placeholder="Choose a password" required>
+            <button type="submit" class="btn btn-primary w-100">Create account</button>
+            <p id="register-error" class="text-danger small mt-2 mb-0"></p>
+            <p class="auth-alt">By continuing you agree to Slotly's Terms.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW B — THE APP. Shown when logged IN.
+       (Starts visible so you can build browsing before the auth flow
+        exists in Sprint 2. Your auth module hides it when logged out.)
+       ============================================================ -->
+  <div id="app-view">
+
+    <!-- Top bar: brand + the three routes + who's logged in -->
+    <nav class="navbar navbar-expand-md sticky-top topbar">
+      <div class="container">
+        <a class="navbar-brand" href="#/browse"><span class="brand-mark"><i class="bi bi-calendar2-check"></i></span> Slotly</a>
+
+        <!-- VIEW LINKS — each points at a view with a "#/..." href. Your click
+             handler reads where a link points, updates state.route, and
+             re-renders. The address bar never changes. -->
+        <ul class="navbar-nav me-auto flex-row gap-3 ms-md-4">
+          <li class="nav-item"><a id="nav-browse"   class="nav-link" href="#/browse">Browse</a></li>
+          <li class="nav-item"><a id="nav-bookings" class="nav-link" href="#/bookings">My bookings</a></li>
+          <li class="nav-item"><a id="nav-services" class="nav-link" href="#/services">My services</a></li>
+        </ul>
+
+        <div class="user-chip">
+          <span id="current-avatar" class="avatar d-none d-sm-grid"></span>
+          <span id="current-name" class="d-none d-sm-inline"></span>
+          <button id="logout-btn" class="btn btn-outline-secondary btn-sm ms-1" type="button">Log out</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-4">
+
+      <!-- the app's page-level heading (each route view uses h2s beneath it).
+           Visually hidden, but it roots the heading outline for screen readers. -->
+      <h1 class="visually-hidden">Slotly</h1>
+
+      <!-- GLOBAL MESSAGE AREA: "Loading...", load errors, etc. -->
+      <p id="message" class="text-muted"></p>
+
+      <!-- ========================================================
+           ROUTE VIEW 1 — BROWSE  (#/browse)
+           The catalog of every service, with search / filter / sort.
+           ======================================================== -->
+      <section id="view-browse" class="view">
+
+        <!-- Hero band: the marketplace welcome + the "host" CTA. -->
+        <div class="browse-hero">
+          <span class="eyebrow">Local services, close to home</span>
+          <h2 class="hero-title">Find someone brilliant nearby</h2>
+          <p class="hero-sub">Trusted local pros for beauty, lessons, photography, pets, home &amp; more — booked in a couple of taps.</p>
+          <button id="offer-btn" class="btn btn-light" type="button"><i class="bi bi-plus-lg"></i> Offer a service</button>
+        </div>
+
+        <!-- SEARCH / FILTER / SORT: all work on the loaded list (no refetch).
+             Sticks below the top bar as you scroll. -->
+        <div class="browse-toolbar">
+          <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-6">
+              <div class="search-field">
+                <i class="bi bi-search"></i>
+                <input id="search" class="form-control" type="text" placeholder="Search services by title..." aria-label="Search services by title">
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="category-filter" class="form-select" aria-label="Filter by category">
+                <option value="all">All categories</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Lessons">Lessons</option>
+                <option value="Photography">Photography</option>
+                <option value="Pets">Pets</option>
+                <option value="Home">Home</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Repairs">Repairs</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="sort" class="form-select" aria-label="Sort services">
+                <option value="none">Sort: featured</option>
+                <option value="price-asc">Price (low → high)</option>
+                <option value="price-desc">Price (high → low)</option>
+                <option value="title">Title (A–Z)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span id="count" class="browse-count small">0 services</span>
+        </div>
+
+        <!-- ========================================================
+             DESIGN MOCK — a BROWSE CARD (from the designer).
+             Your render code must produce cards EXACTLY like this,
+             one per service, inside #service-list. The photo sits on
+             top of a branded fallback tile: if a service has no image
+             (or the link is dead), the tile with its category icon
+             shows through. "N booked" is derived from the confirmed
+             bookings — omit it when a service has none.
+
+             <div class="col">
+               <article class="card service-card h-100" data-id="1">
+                 <a class="poster" data-category="Beauty" href="#/service/1">
+                   <span class="poster-fallback"><i class="bi bi-scissors"></i></span>
+                   <img src="PHOTO_URL" alt="Haircut &amp; style" onerror="this.remove()">
+                   <span class="cat-badge">Beauty</span>
+                 </a>
+                 <div class="card-body d-flex flex-column">
+                   <div class="d-flex justify-content-between align-items-start gap-2">
+                     <h3 class="card-title h6 mb-0">Haircut &amp; style</h3>
+                     <span class="price">€20</span>
+                   </div>
+                   <p class="seller"><span class="avatar">A</span> <strong>Ana</strong></p>
+                   <div class="meta-row">
+                     <span class="meta"><i class="bi bi-clock"></i> 30 min</span>
+                     <span class="meta booked"><i class="bi bi-people"></i> 1 booked</span>
+                   </div>
+                   <a class="btn btn-primary btn-sm mt-auto" href="#/service/1">View &amp; book</a>
+                 </div>
+               </article>
+             </div>
+
+             Category icon for the fallback tile (bi-* + data-category):
+               Beauty bi-scissors · Lessons bi-mortarboard · Photography bi-camera ·
+               Pets bi-heart-fill · Home bi-house-door · Fitness bi-activity ·
+               Repairs bi-tools · Other bi-calendar-check
+             ======================================================== -->
+
+        <!-- your JS renders the service cards inside this grid -->
+        <div id="service-list" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3"></div>
+      </section>
+
+      <!-- ========================================================
+           ROUTE VIEW 2 — SERVICE DETAIL  (#/service/:id)
+           One service, full-size, with the booking panel. The heart
+           of the app. Everything is drawn from state for the routed id.
+           ======================================================== -->
+      <section id="view-detail" class="view d-none">
+        <a class="btn btn-link mb-2" href="#/browse"><i class="bi bi-arrow-left"></i> Back to browse</a>
+
+        <!-- ========================================================
+             DESIGN MOCK — the DETAIL PANEL. Two columns: the service
+             on the left, a sticky action panel on the right. Your JS
+             fills #detail-content with markup like this.
+
+             SOMEONE ELSE's service → a booking box on the right:
+
+             <div class="detail-panel" data-id="3">
+               <div class="detail-grid">
+                 <div class="detail-main">
+                   <div class="detail-poster" data-category="Photography">
+                     <span class="poster-fallback"><i class="bi bi-camera"></i></span>
+                     <img src="PHOTO_URL" alt="Portrait photo session" onerror="this.remove()">
+                   </div>
+                   <div class="detail-body">
+                     <span class="cat-chip">Photography</span>
+                     <h2>Portrait photo session</h2>
+                     <p class="seller"><span class="avatar avatar-lg">I</span> by <strong>Iva</strong></p>
+                     <div class="detail-chips">
+                       <span class="time-badge"><i class="bi bi-clock"></i> 90 min</span>
+                     </div>
+                     <p class="detail-section-label">About this service</p>
+                     <p class="lead-desc">A relaxed one-hour shoot in the park...</p>
+                   </div>
+                 </div>
+                 <aside class="detail-aside">
+                   <div class="book-box">
+                     <div class="book-price"><span class="price price-lg">€80</span><span class="per">/ session</span></div>
+                     <h3>Book this service</h3>
+                     <label class="form-label" for="book-date">Date</label>
+                     <input id="book-date" class="form-control mb-2" type="date">
+                     <label class="form-label" for="book-time">Time</label>
+                     <input id="book-time" class="form-control" type="time">
+                     <button id="book-btn" class="btn btn-primary">Request booking</button>
+                     <p id="book-error" class="text-danger small mt-2 mb-0"></p>
+                     <p class="book-note"><i class="bi bi-shield-check"></i> You won't be charged yet</p>
+                   </div>
+                 </aside>
+               </div>
+             </div>
+
+             MY OWN service → the aside holds owner controls + who booked me
+             (no booking box on your own service):
+
+               <aside class="detail-aside">
+                 <div class="owner-panel">
+                   <div class="book-price"><span class="price price-lg">€80</span><span class="per">/ session</span></div>
+                   <div class="owner-actions">
+                     <button class="btn btn-outline-secondary btn-sm edit" type="button"><i class="bi bi-pencil"></i> Edit</button>
+                     <button class="btn btn-outline-danger btn-sm del" type="button"><i class="bi bi-trash"></i> Delete</button>
+                   </div>
+                   <h3>Bookings (2)</h3>
+                   <ul class="booking-list">
+                     <li><span class="avatar">M</span> <strong>Marko</strong> <span class="when">12 Aug · 14:00</span></li>
+                   </ul>
+                 </div>
+               </aside>
+
+             A service not found for the :id → a friendly "not found"
+             card with a link back to browse. Never a crash.
+             ======================================================== -->
+        <div id="detail-content"></div>
+      </section>
+
+      <!-- ========================================================
+           ROUTE VIEW 3 — MY BOOKINGS  (#/bookings)
+           Every service where I appear in the bookings array.
+           ======================================================== -->
+      <section id="view-bookings" class="view d-none">
+        <h2 class="h4 section-title mb-1">My bookings</h2>
+        <p id="bookings-summary" class="text-muted small mb-3"></p>
+
+        <!-- DESIGN MOCK — a BOOKING ROW your JS renders into #bookings-list:
+
+             <div class="col">
+               <div class="card booking-row" data-service-id="3" data-booking-id="b2">
+                 <div class="card-body d-flex align-items-center">
+                   <a class="row-thumb" data-category="Photography" href="#/service/3">
+                     <span class="poster-fallback"><i class="bi bi-camera"></i></span>
+                     <img src="PHOTO_URL" alt="Portrait photo session" onerror="this.remove()">
+                   </a>
+                   <div class="flex-grow-1">
+                     <h3><a href="#/service/3">Portrait photo session</a></h3>
+                     <p class="row-meta"><i class="bi bi-calendar-event"></i> 12 Aug · 14:00 · with Iva</p>
+                   </div>
+                   <span class="status-pill confirmed"><i class="bi bi-check-circle-fill"></i> Confirmed</span>
+                   <button class="btn btn-outline-danger btn-sm cancel-booking" type="button">Cancel</button>
+                 </div>
+               </div>
+             </div>
+             ======================================================== -->
+        <div id="bookings-list" class="row row-cols-1 g-2"></div>
+      </section>
+
+      <!-- ========================================================
+           ROUTE VIEW 4 — MY SERVICES  (#/services)
+           The services I offer, with edit/delete and how many
+           bookings each has. Summary line derived from state.
+           ======================================================== -->
+      <section id="view-services" class="view d-none">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <h2 class="h4 section-title mb-0">My services</h2>
+          <button id="offer-btn-2" class="btn btn-sm btn-primary" type="button"><i class="bi bi-plus-lg"></i> Offer a service</button>
+        </div>
+        <p id="services-summary" class="text-muted small mb-3"></p>
+
+        <!-- DESIGN MOCK — a MY-SERVICE ROW your JS renders into #services-list:
+
+             <div class="col">
+               <div class="card service-row" data-id="1">
+                 <div class="card-body d-flex align-items-center">
+                   <a class="row-thumb" data-category="Beauty" href="#/service/1">
+                     <span class="poster-fallback"><i class="bi bi-scissors"></i></span>
+                     <img src="PHOTO_URL" alt="Haircut &amp; style" onerror="this.remove()">
+                   </a>
+                   <div class="flex-grow-1">
+                     <h3><a href="#/service/1">Haircut &amp; style</a></h3>
+                     <p class="row-meta">€20 · 30 min · Beauty</p>
+                   </div>
+                   <span class="status-pill count">2 bookings</span>
+                   <div class="d-flex gap-2">
+                     <button class="btn btn-outline-secondary btn-sm edit" type="button"><i class="bi bi-pencil"></i> Edit</button>
+                     <button class="btn btn-outline-danger btn-sm del" type="button"><i class="bi bi-trash"></i> Delete</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             ======================================================== -->
+        <div id="services-list" class="row row-cols-1 g-2"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       OFFER / EDIT OVERLAY (plain HTML — no Bootstrap JS).
+       You open it by removing .d-none and close it by adding it
+       back. The same form does both jobs: the heading + submit
+       text change while editing. Opened by #offer-btn / #offer-btn-2
+       and by Edit on one of my services. Clicking the dark backdrop
+       or a .modal-close button closes it (you wire that).
+       ============================================================ -->
+  <div id="service-modal" class="modal-overlay d-none">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="form-title">
+      <div class="modal-panel-head">
+        <h5 id="form-title" class="mb-0">Offer a service</h5>
+        <button class="btn-x modal-close" type="button" aria-label="Close">&times;</button>
+      </div>
+      <form id="service-form" autocomplete="off">
+        <div class="modal-panel-body">
+          <label class="field-label" for="svc-title">Service title</label>
+          <input id="svc-title" class="form-control mb-3" type="text" placeholder="e.g. Haircut &amp; style" required>
+          <div class="row g-2 mb-3">
+            <div class="col">
+              <label class="field-label" for="svc-price">Price (€)</label>
+              <input id="svc-price" class="form-control" type="number" min="1" step="1" placeholder="20" required>
+            </div>
+            <div class="col">
+              <label class="field-label" for="svc-duration">Duration (min)</label>
+              <input id="svc-duration" class="form-control" type="number" min="5" step="5" placeholder="30" required>
+            </div>
+          </div>
+          <label class="field-label" for="svc-category">Category</label>
+          <select id="svc-category" class="form-select mb-3">
+            <option value="Beauty">Beauty</option>
+            <option value="Lessons">Lessons</option>
+            <option value="Photography">Photography</option>
+            <option value="Pets">Pets</option>
+            <option value="Home">Home</option>
+            <option value="Fitness">Fitness</option>
+            <option value="Repairs">Repairs</option>
+            <option value="Other">Other</option>
+          </select>
+          <label class="field-label" for="svc-image">Photo URL <span class="text-muted fw-normal">(optional)</span></label>
+          <input id="svc-image" class="form-control mb-3" type="url" placeholder="https://...">
+          <label class="field-label" for="svc-description">Description</label>
+          <textarea id="svc-description" class="form-control" rows="3" placeholder="Describe what you offer..."></textarea>
+          <p id="svc-error" class="text-danger small mt-2 mb-0"></p>
+        </div>
+        <div class="modal-panel-foot">
+          <button type="button" class="btn btn-outline-secondary modal-close">Cancel</button>
+          <button id="form-submit" type="submit" class="btn btn-primary">Publish service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST HOST (for the extension backlog — quiet success messages) -->
+  <div class="position-fixed bottom-0 end-0 p-3" id="toast-host" style="z-index:1080"></div>
+
+  <!-- No Bootstrap JS — you build the overlay, tabs, view-switching and
+       everything else in vanilla JS. Only Bootstrap's CSS is used. -->
+
+  <!-- SL-1: load your entry file here. Remember what kind of script it must be. -->
+
+</body>
+</html>
